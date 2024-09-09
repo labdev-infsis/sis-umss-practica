@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${teacher.id != null ? 'Edit Teacher' : 'Create Teacher'}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${teacher.id != null ? 'Edit Teacher' : 'Create Teacher'}"></h1>
+        <form th:action="@{/teachers}" th:object="${teacher}" method="post">
+            <!-- Hidden field for ID -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" id="lastname" th:field="*{lastname}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" id="age" th:field="*{age}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="ci" class="form-label">CI</label>
+                <input type="text" id="ci" th:field="*{ci}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" th:field="*{email}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <select id="subject" th:field="*{subject}" class="form-select">
+                    <option value="" th:text="'Select Subject'" disabled selected></option>
+                    <option th:each="subject : ${subjects}" 
+                            th:value="${subject.id}" 
+                            th:text="${subject.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/teachers" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

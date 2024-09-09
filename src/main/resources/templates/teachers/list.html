@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Teachers List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teachers</h1>
+        <a href="/teachers/create" class="btn btn-primary mb-3">Add New Teacher</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>CI</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teacher : ${teachers}">
+                    <td th:text="${teacher.id}"></td>
+                    <td th:text="${teacher.name}"></td>
+                    <td th:text="${teacher.lastname}"></td>
+                    <td th:text="${teacher.age}"></td>
+                    <td th:text="${teacher.ci}"></td>
+                    <td th:text="${teacher.email}"></td>
+                    <td th:text="${teacher.subject.name}"></td>
+                    <td>
+                        <a th:href="@{/teachers/edit/{id}(id=${teacher.id})}" class="btn btn-warning btn-sm">Edit</a>
+                        <form th:action="@{/teachers/delete/{id}(id=${teacher.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

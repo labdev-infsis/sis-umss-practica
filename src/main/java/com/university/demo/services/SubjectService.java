@@ -7,7 +7,7 @@ import com.university.demo.models.Subject;
 
 public interface SubjectService {
     List<Subject> findAll();
-    Optional<Subject> findById(int group);
+    Optional<Subject> findById(Long id);
     Subject save(Subject subject);
-    void deleteById(int group);
+    void deleteById(Long id);
 }

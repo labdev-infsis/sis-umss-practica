@@ -22,8 +22,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Optional<Subject> findById(int group) {
-        return subjectRepository.findById(group);
+    public Optional<Subject> findById(Long id) {
+        return subjectRepository.findById(id);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void deleteById(int group) {
-        subjectRepository.deleteById(group);
+    public void deleteById(Long id) {
+        subjectRepository.deleteById(id);
     }
 }
