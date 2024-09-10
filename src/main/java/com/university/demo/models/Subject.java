@@ -16,8 +16,8 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(1)
-    @Max(99)
+    @Min(value = 1, message = "Group number must be between 1 and 99")
+    @Max(value = 99, message = "Group number must be between 1 and 99")
     private int groupNumber;
 
     @NotBlank(message = "Name is mandatory")
