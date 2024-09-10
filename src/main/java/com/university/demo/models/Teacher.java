@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Teacher {
@@ -20,13 +21,11 @@ public class Teacher {
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
-    @Min(value = 3, message = "Name must be between 3 and 50 characters")
-    @Max(value = 50, message = "Name must be between 3 and 50 characters")
+    @Size(min = 2, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
     @NotBlank(message = "Last name is mandatory")
-    @Min(value = 3, message = "Lastname must be between 3 and 50 characters")
-    @Max(value = 50, message = "Lastname must be between 3 and 50 characters")
+    @Size(min = 2, max = 50, message = "Name must be between 3 and 50 characters")
     private String lastname;
 
     @Min(value = 18, message = "Age must be at least 18")

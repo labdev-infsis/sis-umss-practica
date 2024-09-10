@@ -2,51 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${teacher.id != null ? 'Edit Teacher' : 'Create Teacher'}"></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1 th:text="${teacher.id != null ? 'Edit Teacher' : 'Create Teacher'}"></h1>
-        <form th:action="@{/teachers}" th:object="${teacher}" method="post">
+    <div class="container mt-5">
+        <h1 th:text="${teacher.id != null ? 'Edit Teacher' : 'Create Teacher'}" class="mb-4"></h1>
+        <form th:action="@{/teachers}" th:object="${teacher}" method="post" class="row g-3">
             <input type="hidden" th:field="*{id}" />
-            <div class="mb-3">
+            
+            <!-- Name -->
+            <div class="col-md-6">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" id="name" th:field="*{name}" class="form-control" />
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
-            <div class="mb-3">
+            
+            <!-- Lastname -->
+            <div class="col-md-6">
                 <label for="lastname" class="form-label">Lastname</label>
                 <input type="text" id="lastname" th:field="*{lastname}" class="form-control" />
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
             </div>
-            <div class="mb-3">
+
+            <!-- Age -->
+            <div class="col-md-4">
                 <label for="age" class="form-label">Age</label>
                 <input type="number" id="age" th:field="*{age}" class="form-control" />
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
             </div>
-            <div class="mb-3">
+
+            <!-- CI -->
+            <div class="col-md-4">
                 <label for="ci" class="form-label">CI</label>
                 <input type="text" id="ci" th:field="*{ci}" class="form-control" />
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('ci')}" th:errors="*{ci}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('ci')}" th:errors="*{ci}"></div>
             </div>
-            <div class="mb-3">
+
+            <!-- Email -->
+            <div class="col-md-4">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" id="email" th:field="*{email}" class="form-control" />
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
-            <div class="mb-3">
+
+            <!-- Subject -->
+            <div class="col-md-6">
                 <label for="subject" class="form-label">Subject</label>
                 <select id="subject" th:field="*{subject}" class="form-select">
-                    <option value="" th:text="'Select Subject'" disabled selected></option>
+                    <option value="" disabled selected>Select a subject</option>
                     <option th:each="subject : ${subjects}" 
                             th:value="${subject.id}" 
                             th:text="${subject.name}"></option>
                 </select>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="/teachers" class="btn btn-secondary">Cancel</a>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="/teachers" class="btn btn-secondary">Cancel</a>
+            </div>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
