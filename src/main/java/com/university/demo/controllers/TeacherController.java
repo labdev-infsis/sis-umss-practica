@@ -46,14 +46,14 @@ public class TeacherController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editTeacherForm(@PathVariable Long id, Model model) {
+    public String editTeacherForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("teacher", teacherService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid teacher id: " + id)));
         model.addAttribute("subjects", subjectService.findAll());
         return "teachers/form";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteTeacher(@PathVariable Long id) {
+    public String deleteTeacher(@PathVariable("id") Long id) {
         teacherService.deleteById(id);
         return "redirect:/teachers";
     }

@@ -8,18 +8,20 @@
     <div class="container">
         <h1 th:text="${subject.id != null ? 'Edit Subject' : 'Create Subject'}"></h1>
         <form th:action="@{/subjects}" th:object="${subject}" method="post">
-            <!-- Hidden field for ID -->
             <input type="hidden" th:field="*{id}" />
 
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" id="name" th:field="*{name}" class="form-control" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
-            
+
             <div class="mb-3">
                 <label for="groupNumber" class="form-label">Group Number</label>
                 <input type="number" id="groupNumber" th:field="*{groupNumber}" class="form-control" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('groupNumber')}" th:errors="*{groupNumber}"></div>
             </div>
+
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="/subjects" class="btn btn-secondary">Cancel</a>
         </form>
