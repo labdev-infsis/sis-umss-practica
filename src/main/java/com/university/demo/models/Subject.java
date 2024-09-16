@@ -1,9 +1,13 @@
 package com.university.demo.models;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,6 +26,9 @@ public class Subject {
 
     @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
+    private List<Teacher> teachers;
 
     // Getters and Setters
     public Long getId() {

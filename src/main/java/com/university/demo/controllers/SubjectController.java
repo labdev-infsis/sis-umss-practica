@@ -49,7 +49,7 @@ public class SubjectController {
         return "subjects/form";
     }
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteSubject(@PathVariable("id") Long id) {
         subjectService.deleteById(id);
         return "redirect:/subjects";
