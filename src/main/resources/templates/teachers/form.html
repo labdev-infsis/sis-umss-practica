@@ -78,7 +78,7 @@
             <div class="col-md-6">
                 <label for="subject" class="form-label">Subject</label>
                 <select id="subject" th:field="*{subject}" class="form-select">
-                    <option value="" disabled selected>Select a subject</option>
+                    <option value="" selected>Select a subject</option>
                     <option th:each="subject : ${subjects}" 
                             th:value="${subject.id}" 
                             th:text="${subject.name}"></option>

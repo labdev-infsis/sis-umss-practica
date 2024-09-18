@@ -2,7 +2,6 @@ package com.university.demo.models;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +26,7 @@ public class Subject {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "subject")
     private List<Teacher> teachers;
 
     // Getters and Setters

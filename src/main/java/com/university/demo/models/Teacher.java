@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -41,9 +40,8 @@ public class Teacher {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotNull(message = "Subject is mandatory")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "subject_id", nullable = true)
     private Subject subject;
 
     // Getters and Setters

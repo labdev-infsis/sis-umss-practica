@@ -57,7 +57,7 @@
                     <td th:text="${teacher.age}"></td>
                     <td th:text="${teacher.ci}"></td>
                     <td th:text="${teacher.email}"></td>
-                    <td th:text="${teacher.subject.name}"></td>
+                    <td th:text="${teacher.subject != null ? teacher.subject.name : 'No Subject'}"></td>
                     <td>
                         <a th:href="@{/teachers/edit/{id}(id=${teacher.id})}" class="btn btn-warning btn-sm">Edit</a>
                         <a th:href="@{/teachers/delete/{id}(id=${teacher.id})}" class="btn btn-danger btn-sm">Delete</a>
