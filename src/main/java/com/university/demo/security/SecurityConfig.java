@@ -7,15 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-
-import com.university.demo.services.UserService;
 
 @Configuration
 public class SecurityConfig {
-    
-    @Autowired
-    private UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

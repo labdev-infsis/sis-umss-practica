@@ -1,11 +1,13 @@
 package com.university.demo.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
+@Entity(name = "usuarios")
 public class User {
 
     @Id
