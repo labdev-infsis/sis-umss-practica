@@ -3,63 +3,140 @@
 <head>
     <title>Subjects List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        // Script para la búsqueda en tiempo real (solo por nombre de la materia)
+        function searchSubject() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const tableRows = document.querySelectorAll('#subjectTable tbody tr');
+
+            tableRows.forEach(row => {
+                const name = row.getElementsByTagName('td')[1].innerText.toLowerCase(); // Nombre en la columna 2
+
+                if (name.includes(keyword)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Script para la paginación en el lado del cliente
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        let totalRows, tableRows, totalPages;
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            tableRows.forEach((row, index) => {
+                row.style.display = (index >= start && index < end) ? '' : 'none';
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const paginationContainer = document.getElementById('pagination');
+            paginationContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.classList.add('btn', 'btn-primary', 'me-1');
+                pageButton.textContent = i;
+                pageButton.onclick = () => showPage(i);
+
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+
+                paginationContainer.appendChild(pageButton);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            tableRows = document.querySelectorAll('#subjectTable tbody tr');
+            totalRows = tableRows.length;
+            totalPages = Math.ceil(totalRows / rowsPerPage);
+            showPage(1);  // Mostrar la primera página al cargar la página
+        });
+    </script>
 </head>
 <body>
-    <!-- barra de navegacion -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="https://www.umss.edu.bo/wp-content/uploads/2022/08/Logo_umss.png" alt=""  height="68">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/teachers" class="nav-link">Teachers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/subjects" class="nav-link active">Subjects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/students" class="nav-link">Students</a>
-                    </li>
-                </ul>
-            </div>
+<!-- barra de navegacion -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="https://www.umss.edu.bo/wp-content/uploads/2022/08/Logo_umss.png" alt=""  height="68">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/teachers" class="nav-link">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/subjects" class="nav-link active">Subjects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/students" class="nav-link">Students</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-    <!-- fin barra de navegacion -->
-
-    <div class="container mt-5">
-        <h1>Subjects List</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Group Number</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="subject : ${subjects}">
-                    <td th:text="${subject.id}"></td>
-                    <td th:text="${subject.name}"></td>
-                    <td th:text="${subject.groupNumber}"></td>
-                    <td>
-                        <a th:href="@{/subjects/edit/{id}(id=${subject.id})}" class="btn btn-warning btn-sm">Edit</a>
-                        <a th:href="@{/subjects/delete/{id}(id=${subject.id})}" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/subjects/create" class="btn btn-primary">Add New Subject</a>
     </div>
+</nav>
+<!-- fin barra de navegacion -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Barra de búsqueda y botón Add New Subject -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by Subject Name" onkeyup="searchSubject()">
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="/subjects/create" class="btn btn-primary">Add New Subject</a>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de materias -->
+<div class="container mt-3">
+    <h1>Subjects List</h1>
+    <table class="table table-striped" id="subjectTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Group Number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td th:text="${subject.id}"></td>
+            <td th:text="${subject.name}"></td>
+            <td th:text="${subject.groupNumber}"></td>
+            <td>
+                <a th:href="@{/subjects/edit/{id}(id=${subject.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/subjects/delete/{id}(id=${subject.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Paginación -->
+<div class="container mt-4 text-center">
+    <div id="pagination" class="d-inline-block"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
