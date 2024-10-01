@@ -31,4 +31,5 @@ public class AuthController {
     public String showLoginForm() {
         return "login";
     }
+
 }
