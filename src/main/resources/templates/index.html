@@ -12,6 +12,12 @@
             </div>
             <h1>Bienvenido</h1>
             <p>Administración del sistema:</p>
+
+            <!-- Enlace para hacer logout -->
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        
         <div class="row">
             <div class="col-md-4">
                 <a href="/teachers" class="btn btn-primary btn-block w-100">Manage Teachers</a>
